@@ -91,6 +91,11 @@ public class JockeysConfig
         @Config.Name("Skeleton Bat Jockey Offhand Item")
         @Config.Comment("Offhand item for jockeys")
         public String jockeyItemOffhand = "minecraft:bone";
+
+        @Config.Name("Wither Skeleton Chance")
+        @Config.Comment("The chance for a Wither Skeleton variant in percent")
+        @Config.RangeInt(min = 0, max = 100)
+        public int witherSkeletonChance = 10;
     }
 
     public static class WitherSkeletonGhastSettings

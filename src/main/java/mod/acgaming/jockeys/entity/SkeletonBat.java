@@ -1,6 +1,5 @@
 package mod.acgaming.jockeys.entity;
 
-import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.*;
@@ -25,6 +24,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
+import java.util.List;
 import mod.acgaming.jockeys.Jockeys;
 import mod.acgaming.jockeys.config.JockeysConfig;
 import mod.acgaming.jockeys.util.JockeysHelper;
@@ -188,8 +188,14 @@ public class SkeletonBat extends EntityMob
         livingData = super.onInitialSpawn(difficulty, livingData);
 
         AbstractSkeleton skeleton;
-        if (this.world.rand.nextInt(10) == 0) skeleton = new EntityWitherSkeleton(this.world);
-        else skeleton = new EntitySkeleton(this.world);
+        if (JockeysConfig.SKELETON_BAT_SETTINGS.witherSkeletonChance > 0 && this.world.rand.nextInt(100) <= JockeysConfig.SKELETON_BAT_SETTINGS.witherSkeletonChance)
+        {
+            skeleton = new EntityWitherSkeleton(this.world);
+        }
+        else
+        {
+            skeleton = new EntitySkeleton(this.world);
+        }
         skeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
         skeleton.onInitialSpawn(difficulty, null);
         skeleton.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(JockeysConfig.SKELETON_BAT_SETTINGS.followRange);
